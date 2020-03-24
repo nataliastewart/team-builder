@@ -1,28 +1,33 @@
 import React from "react";
 import { useState } from "react";
 
-const Form = () => {
-  const [inputValue, setInputValue] = useState({
+const Form = props => {
+  const [team, setTeam] = useState({
     name: "",
     email: "",
     role: ""
   });
 
   const handleChange = event => {
-    setInputValue({ ...inputValue, [event.target.name]: event.target.value });
+    setTeam({
+      ...team,
+      [event.target.name]: event.target.value
+    });
   };
 
   // const handleEmailChange = event => {
-  //   setInputValue({ ...inputValue, [event.target.name]: event.target.value });
+  //   setTeam({ ...team, [event.target.name]: event.target.value });
   // };
 
   // const handleRoleChange = event => {
-  //   setInputValue({ ...inputValue, [event.target.name]: event.target.value });
+  //   setTeam({ ...team, [event.target.name]: event.target.value });
   // };
 
   const handleSubmit = event => {
     event.preventDefault();
-    setInputValue({
+    props.update(team);
+
+    setTeam({
       name: "",
       email: "",
       role: ""
@@ -31,24 +36,25 @@ const Form = () => {
 
   return (
     <div>
-      {console.log(inputValue)}
+      {console.log(team)}
       <form onSubmit={event => handleSubmit(event)}>
         <label>
           Name:
           <input
             type="text"
             name="name"
-            value={inputValue.name}
-            onChange={event => handleChange(event)}
+            value={team.name}
+            onChange={handleChange}
           />
         </label>
+
         <label>
           Email:
           <input
             type="text"
             name="email"
-            value={inputValue.email}
-            onChange={event => handleChange(event)}
+            value={team.email}
+            onChange={handleChange}
           />
         </label>
         <label>
@@ -56,8 +62,8 @@ const Form = () => {
           <input
             type="text"
             name="role"
-            value={inputValue.role}
-            onChange={event => handleChange(event)}
+            value={team.role}
+            onChange={handleChange}
           />
         </label>
         <button onSubmit={() => handleSubmit()}>Submit!</button>
